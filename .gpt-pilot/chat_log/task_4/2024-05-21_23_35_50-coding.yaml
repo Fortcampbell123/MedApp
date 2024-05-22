@@ -1,0 +1,85 @@
+endpoint: OPENAI
+model: gpt-4-turbo-preview
+messages:
+- role: system
+  content: 'You are a world class full stack software developer working in a team.
+
+
+    You write modular, well-organized code split across files that are not too big, so that the codebase is maintainable.
+    You include proper error handling and logging for your clean, readable, production-level quality code.
+
+
+    Your job is to implement tasks assigned by your tech lead, following task implementation instructions.'
+- role: user
+  content: "Here is description of app that you are working on:\n```\nTodo List Functionality:\n\n1. **Add Todo Item**: Users\
+    \ can add tasks with details such as task name, description, due date, and priority level. Should there be any specific\
+    \ fields related to healthcare activities that need to be included in the task details?\n\n2. **View Todo List**: Display\
+    \ a list of tasks for each client, with the ability to sort or filter tasks by status (pending, completed), due date,\
+    \ or priority.\n\n3. **Edit Todo Item**: Users can edit the details of an existing task. Are there any restrictions on\
+    \ who can edit tasks (e.g., only the user who created the task or any user with access to that client)?\n\n4. **Mark as\
+    \ Completed**: Users can mark tasks as completed. Should there be an option to revert a task back to pending status?\n\
+    \n5. **Delete Todo Item**: Users can delete tasks. Should this be a soft delete (where the task is hidden but not permanently\
+    \ removed) or a hard delete (permanently removed)?\n\n6. **Access Control**: Define which roles have access to view and\
+    \ manage the Todo lists. Is access to Todo lists based on the client they are assigned to, or can certain roles view all\
+    \ clients' Todo lists?\n\n7. **Notifications/Reminders**: Should the system send notifications or reminders for upcoming\
+    \ deadlines for tasks? If so, which method(s) should be used (email, SMS, in-app notifications)?\n\nPlease provide details\
+    \ on these aspects of the Todo list functionality to ensure the specification fully captures the project requirements.\n\
+    Additional info/examples:\n1. The app is built using React.\n2. The app features a login page.\n3. Users can change their\
+    \ password.\n4. Upon login, users can see the names and pictures of clients.\n5. Clicking on a client's name or picture\
+    \ takes the user to that client's todo list.\n```\n\nHere are the relevant files:\n---START_OF_FILES---\n**\\package.json**\
+    \ (34 lines of code):\n```\n{\n  \"name\": \"Elite\",\n  \"private\": true,\n  \"version\": \"0.0.0\",\n  \"type\": \"\
+    module\",\n  \"scripts\": {\n    \"dev\": \"vite\",\n    \"build\": \"vite build\",\n    \"lint\": \"eslint . --ext js,jsx\
+    \ --report-unused-disable-directives --max-warnings 0\",\n    \"preview\": \"vite preview\"\n  },\n  \"dependencies\"\
+    : {\n    \"axios\": \"^1.7.2\",\n    \"bcrypt\": \"^5.1.1\",\n    \"connect-mongo\": \"^5.1.0\",\n    \"dotenv\": \"^16.4.5\"\
+    ,\n    \"express\": \"^4.19.2\",\n    \"express-session\": \"^1.18.0\",\n    \"mongoose\": \"^8.4.0\",\n    \"react\"\
+    : \"^18.2.0\",\n    \"react-dom\": \"^18.2.0\",\n    \"react-router-dom\": \"^6.23.1\"\n  },\n  \"devDependencies\": {\n\
+    \    \"@types/react\": \"^18.2.64\",\n    \"@types/react-dom\": \"^18.2.21\",\n    \"@vitejs/plugin-react\": \"^4.2.1\"\
+    ,\n    \"eslint\": \"^8.57.0\",\n    \"eslint-plugin-react\": \"^7.34.0\",\n    \"eslint-plugin-react-hooks\": \"^4.6.0\"\
+    ,\n    \"eslint-plugin-react-refresh\": \"^0.4.5\",\n    \"vite\": \"^5.1.6\"\n  }\n}\n\n```\n\n**src\\App.jsx** (18 lines\
+    \ of code):\n```\nimport React from 'react';\nimport { BrowserRouter as Router, Route, Routes } from 'react-router-dom';\n\
+    import Login from './components/Login';\nimport './App.css';\n\nfunction App() {\n  console.log('App component loaded');\n\
+    \  return (\n    <Router>\n      <Routes>\n        <Route path=\"/\" element={<Login />} />\n        {/* Additional routes\
+    \ can be added here */}\n      </Routes>\n    </Router>\n  );\n}\n\nexport default App;\n```\n\n**\\.env** (3 lines of\
+    \ code):\n```\nMONGODB_URI=mongodb+srv://coolboy21532:Wizard%40101@cluster0.1avtx4d.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0\n\
+    PORT=5173\nSESSION_SECRET=veryStrongSecretKey123!\n```\n\n---END_OF_FILES---\n\n\n\nUser was given instructions on how\
+    \ to test if the app is working correctly. Here are the instructions:\n```\nCan you check if the app works please? Here\
+    \ is a description of what should be working: \n\n\e[36m\e[1m### Step 1\nAction: Start the development server using the\
+    \ command `npm run dev`.\nExpected result: You should see a message indicating that Vite has started the server, usually\
+    \ something like \"Local: http://localhost:5173/\".\n\n### Step 2\nAction: Open your web browser and navigate to the URL\
+    \ provided by the development server, typically http://localhost:5173/.\nExpected result: The web page loads, displaying\
+    \ a login form with \"Username\" and \"Password\" fields, and a \"Login\" button.\n\n### Step 3\nAction: Enter a valid\
+    \ username and password into the form fields (make sure these credentials are already set up in your backend for testing\
+    \ purposes).\nExpected result: After clicking the \"Login\" button, assuming the username and password are correct and\
+    \ the backend is properly responding, you should be redirected to a new page or see a message indicating a successful\
+    \ login. Since the subsequent page (e.g., \"/todo-list\") is not specified to be implemented yet, the exact response might\
+    \ vary based on the current setup. If redirection is not set up yet, look for any indication of a successful POST request\
+    \ in the browser's developer console under the Network tab.\n\n### Step 4\nAction: Repeat Step 2, but this time enter\
+    \ an incorrect username or password.\nExpected result: You should not be redirected. Instead, you should see an error\
+    \ message on the login page indicating that the login attempt was unsuccessful.\n\n### Step 5\nAction: Check the browser's\
+    \ developer console for any errors during these steps.\nExpected result: There should be no JavaScript errors in the console\
+    \ related to the login functionality. Any network requests to `/api/login` should show as POST requests with a status\
+    \ code of 200 for successful logins and possibly 401 or another client error status code for unsuccessful login attempts.\n\
+    \n### Note:\nSince the backend setup for handling the login request and the frontend page for post-login redirection (e.g.,\
+    \ \"/todo-list\") might not be fully implemented or specified in this task, the expected results, especially for successful\
+    \ login, might vary. The crucial part is that the login page is displayed, and the form submission is handled as expected.\e\
+    [0m\n\n```\n\n\nUser wrote this feedback:\n```\nLogin error: Request failed with status code 404\n```\n\n\nYour job is\
+    \ to identify if feedback is good enough for you to solve the problem. If not, what information you need to solve the\
+    \ problem. Ask for any information that you need to solve the problem.\nIf you have enough information don't ask any questions.\n\
+    \nWhen thinking of questions, consider the following:\n- After getting answers to your questions, you must be able to\
+    \ solve the problem.\n- Ask only crucial questions. Do not ask for information that you do not need to solve the problem.\n\
+    - Ask least amount of questions to get the most information and to solve the problem.\n- Ask only questions from the list\
+    \ provided bellow.\n- Ask questions in same order as they are in the list.\n- Never repeat same question.\n\nHere is the\
+    \ list of questions you can ask:\n\"Can you please provide more information on what exactly you mean?\"\n\"Can you please\
+    \ provide logs from the frontend?\"\n\"Can you please provide logs from the backend?\"\n\"What is the expected behavior\
+    \ and what is current behaviour?\"\n\"On what page does the issue happen?\""
+- role: user
+  content: "**IMPORTANT**\nYou must respond with ONLY the JSON object, with NO additional text or explanation.\n\nHere is\
+    \ the schema for the expected JSON object:\n```json\n{\n    \"missing_data\": {\n        \"type\": \"array\",\n      \
+    \  \"items\": {\n            \"type\": \"object\",\n            \"properties\": {\n                \"question\": {\n \
+    \                   \"type\": \"string\",\n                    \"description\": \"Very clear question that needs to be\
+    \ answered to have good bug report.\"\n                }\n            },\n            \"required\": [\n              \
+    \  \"question\"\n            ],\n            \"additionalProperties\": false\n        }\n    }\n}\n```\n\n"
+response: "{\n    \"error\": {\n        \"message\": \"You exceeded your current quota, please check your plan and billing\
+  \ details. For more information on this error, read the docs: https://platform.openai.com/docs/guides/error-codes/api-errors.\"\
+  ,\n        \"type\": \"insufficient_quota\",\n        \"param\": null,\n        \"code\": \"insufficient_quota\"\n    }\n\
+  }\n"

@@ -1,0 +1,40 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file defines a React functional component for a login form. It handles user input for username and password, makes an asynchronous POST request to '/api/login' using axios, and redirects to '/todo-list' upon successful login. It also displays error messages if login fails.",
+    "references": [
+      "react",
+      "axios",
+      "react-router-dom"
+    ]
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The changes correctly implement React Router for navigation and include the Login component as per the task instructions. The addition of console logging for debugging is acceptable practice and does not detract from the functionality.",
+        "decision": "apply"
+      }
+    ],
+    "review_notes": "The changes made to the App.jsx file align with the task requirements for implementing a frontend login page using React and setting up routing with React Router. The developer has correctly added the necessary imports, set up the Router and Routes, and included the Login component. The addition of a console log statement for 'App component loaded' is a minor change and can be considered good practice for tracking component loads during development. Overall, the implementation follows the instructions and best practices for React development."
+  }
+}

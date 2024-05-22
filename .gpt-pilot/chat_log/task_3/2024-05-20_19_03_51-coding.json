@@ -1,0 +1,69 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The additions correctly import necessary modules and set up MongoDB connection using mongoose, which aligns with the project's requirements for integrating user authentication and session management.",
+        "decision": "apply"
+      },
+      {
+        "number": 2,
+        "reason": "This hunk correctly adds middleware for parsing JSON bodies, configures session management with express-session and connect-mongo, and integrates the authentication routes. However, it removes the error handling middleware, which is crucial for catching and responding to errors globally in the application.",
+        "decision": "rework"
+      }
+    ],
+    "review_notes": "The changes made are largely in alignment with the task requirements for setting up user authentication and session management. However, the removal of the error handling middleware in the second hunk could lead to unhandled errors, which is a critical oversight. It's important to ensure that all necessary functionality is preserved while making new additions to the codebase."
+  }
+}

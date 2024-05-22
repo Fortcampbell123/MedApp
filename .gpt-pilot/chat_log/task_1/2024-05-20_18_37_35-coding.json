@@ -1,0 +1,64 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The placeholder 'INPUT_REQUIRED {your_mongodb_connection_string_here}' needs to be replaced with an actual MongoDB connection string for the application to connect to the database.",
+        "decision": "rework"
+      }
+    ],
+    "review_notes": "The developer needs to replace the placeholder with a valid MongoDB connection string to ensure the application can successfully connect to the database. The use of 'INPUT_REQUIRED' indicates that the developer has not provided the necessary connection details."
+  }
+}

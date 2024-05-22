@@ -1,0 +1,39 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file defines a Mongoose model for a user, including fields for username, password (hashed using bcrypt before saving), and roles. It also includes a pre-save hook to hash the password before saving it to the database.",
+    "references": [
+      "mongoose.js",
+      "bcrypt.js"
+    ]
+  }
+}

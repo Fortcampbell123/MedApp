@@ -1,0 +1,143 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "process_architecture",
+      "description": "Get architecture and the list of system dependencies required for the project.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "architecture": {
+            "type": "string",
+            "description": "General description of the app architecture."
+          },
+          "system_dependencies": {
+            "type": "array",
+            "description": "List of system dependencies required to build and run the app.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the system dependency, for example Node.js or Python."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "One-line description of the dependency."
+                },
+                "test": {
+                  "type": "string",
+                  "description": "Command line to test whether the dependency is available on the system."
+                },
+                "required_locally": {
+                  "type": "boolean",
+                  "description": "Whether this dependency must be installed locally (as opposed to connecting to cloud or other server)"
+                }
+              },
+              "required": [
+                "name",
+                "description",
+                "test",
+                "required_locally"
+              ]
+            }
+          },
+          "package_dependencies": {
+            "type": "array",
+            "description": "List of framework/language-specific packages used by the app.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "Name of the package dependency, for example Express or React."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "One-line description of the dependency."
+                }
+              },
+              "required": [
+                "name",
+                "description"
+              ]
+            }
+          },
+          "template": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "One of the available project templates."
+          }
+        },
+        "required": [
+          "architecture",
+          "system_dependencies",
+          "package_dependencies"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "architecture": "The application will have a React front-end for dynamic user interfaces, with Node.js and Express serving as the backend for API requests, and MongoDB for the database. Authentication will be handled via session-based login, and the app will provide CRUD operations for todo items, along with access control and notifications.",
+    "system_dependencies": [
+      {
+        "name": "Node.js",
+        "description": "JavaScript runtime for building apps. This is required to be able to run the app you're building.",
+        "test": "node --version",
+        "required_locally": true
+      },
+      {
+        "name": "MongoDB",
+        "description": "NoSQL database. If you don't want to install MongoDB locally, you can use a cloud version such as MongoDB Atlas.",
+        "test": "mongosh --version",
+        "required_locally": false
+      }
+    ],
+    "package_dependencies": [
+      {
+        "name": "express",
+        "description": "Express web server for Node"
+      },
+      {
+        "name": "mongoose",
+        "description": "Mongoose ORM for MongoDB interactions"
+      },
+      {
+        "name": "bcrypt",
+        "description": "Library to help hash passwords"
+      },
+      {
+        "name": "express-session",
+        "description": "Middleware for session management in Express"
+      },
+      {
+        "name": "react",
+        "description": "A JavaScript library for building user interfaces"
+      },
+      {
+        "name": "react-dom",
+        "description": "React package for working with the DOM"
+      },
+      {
+        "name": "react-router-dom",
+        "description": "DOM bindings for React Router"
+      },
+      {
+        "name": "axios",
+        "description": "Promise based HTTP client for the browser and node.js"
+      },
+      {
+        "name": "bootstrap",
+        "description": "Front-end framework for developing responsive, mobile first projects on the web"
+      },
+      {
+        "name": "dotenv",
+        "description": "Module to load environment variables from a .env file"
+      }
+    ],
+    "template": "javascript_react"
+  }
+}

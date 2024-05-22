@@ -1,0 +1,12 @@
+endpoint: OPENAI
+model: gpt-4-turbo-preview
+messages:
+- role: system
+  content: You are a product owner working in a software development agency.
+- role: user
+  content: "```\nElite is a App that uses React and on the lunch page you can login and Change password once you login you\
+    \ can See the names and picture of Clients when you click it will take you to a todo list \n```\n\nThe following is a\
+    \ user prompt for application/software tool they are trying to develop. Determine the complexity of the user's request.\
+    \ Do NOT respond with thoughts, reasoning, explanations or anything similar, return ONLY a numerical representation of\
+    \ the complexity level. Use the following scale:\n3 for HIGH_COMPLEXITY\n2 for MODERATE_COMPLEXITY\n1 for LOW_COMPLEXITY"
+response: '2'

@@ -1,0 +1,32 @@
+endpoint: OPENAI
+model: gpt-3.5-turbo
+messages:
+- role: system
+  content: "You're a software developer AI assistant. Your task is to explain the functionality implemented by a particular\
+    \ source code file.\n\nGiven a file path and file contents, your output should contain:\n\n* a short explanation of what\
+    \ the file is about;\n* a list of all other files referenced (imported) from this file. note that some libraries, frameworks\
+    \ or libraries assume file extension and don't use it explicitly. For example, \"import foo\" in Python references \"\
+    foo.py\" without specifying the extension. In your response, use the complete file name including the implied extension;\n\
+    \nOutput the result in a JSON format with the following structure, as in this example:\n\nExample:\n{\n    \"summary\"\
+    : \"Describe in detail the functionality being defind o implemented in this file. Be as detailed as possible\",\n    \"\
+    references\": [\n        \"some/file.py\",\n        \"some/other/file.js\"\n    ],\n}\n\nYour response must be a valid\
+    \ JSON document, following the example format. Do not add any extra explanation or commentary outside the JSON document.\n"
+- role: user
+  content: "Here's the `backend\\models\\userModel.js` file:\n```\nimport mongoose from 'mongoose';\nimport bcrypt from 'bcrypt';\n\
+    \nconst userSchema = new mongoose.Schema({\n  username: {\n    type: String,\n    required: true,\n    unique: true,\n\
+    \  },\n  password: {\n    type: String,\n    required: true,\n  },\n  roles: [{\n    type: String,\n    enum: ['admin',\
+    \ 'user'],\n    default: 'user',\n  }],\n});\n\n// Hash password before saving\nuserSchema.pre('save', async function(next)\
+    \ {\n  if (this.isModified('password') || this.isNew) {\n    try {\n      const salt = await bcrypt.genSalt(10);\n   \
+    \   const hash = await bcrypt.hash(this.password, salt);\n      this.password = hash;\n      next();\n    } catch (error)\
+    \ {\n      console.error('Error hashing password:', error.message, error.stack);\n      next(error);\n    }\n  } else\
+    \ {\n    next();\n  }\n});\n\nconst User = mongoose.model('User', userSchema);\n\nexport default User;\n```\n"
+- role: user
+  content: "**IMPORTANT**\nYou must respond with ONLY the JSON object, with NO additional text or explanation.\n\nHere is\
+    \ the schema for the expected JSON object:\n```json\n{\n    \"summary\": {\n        \"type\": \"string\",\n        \"\
+    description\": \"Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible.\"\
+    \n    },\n    \"references\": {\n        \"type\": \"array\",\n        \"items\": {\n            \"type\": \"string\"\
+    ,\n            \"description\": \"Path to a file that is referenced in the current file, relative to the project root.\"\
+    \n        },\n        \"description\": \"List of file references.\"\n    }\n}\n```\n\n"
+response: "{\n    \"summary\": \"This file defines a Mongoose model for a user, including fields for username, password (hashed\
+  \ using bcrypt before saving), and roles. It also includes a pre-save hook to hash the password before saving it to the\
+  \ database.\",\n    \"references\": [\n        \"mongoose.js\",\n        \"bcrypt.js\"\n    ]\n}"

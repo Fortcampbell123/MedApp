@@ -1,0 +1,64 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The hunk accurately implements the login functionality as described, including form handling, state management, and navigation upon successful login. It follows best practices for React functional components and uses Axios for HTTP requests, aligning with the task requirements.",
+        "decision": "apply"
+      }
+    ],
+    "review_notes": "The code change effectively meets the task's requirements for creating a login page with form submission and error handling. It properly uses React hooks for state management and Axios for making the POST request. The use of `useNavigate` for redirection after successful login is correctly implemented. The developer has also included appropriate error handling and logging, which are good practices. Overall, the implementation aligns with the project's objectives and coding standards."
+  }
+}

@@ -1,0 +1,138 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "parse_development_task",
+      "description": "Breaks down the development task into smaller steps that need to be done to implement the entire task.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "tasks": {
+            "type": "array",
+            "description": "List of smaller development steps.",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "command",
+                      "description": "Type of the development step that needs to be done to complete the entire task."
+                    },
+                    "command": {
+                      "type": "object",
+                      "description": "Command that needs to be run to complete the current task. This should be used only if the task is of a type \"command\".",
+                      "properties": {
+                        "command": {
+                          "type": "string",
+                          "description": "A single command that needs to be executed."
+                        },
+                        "timeout": {
+                          "type": "number",
+                          "description": "Timeout in milliseconds that represent the approximate time this command takes to finish. If you need to run a command that doesnt't finish by itself (eg. a command to run an app), set the timeout to to a value long enough to determine that it has started successfully and provide a command_id. If you need to create a directory that doesn't exist and is not the root project directory, always create it by running a command `mkdir`"
+                        },
+                        "success_message": {
+                          "type": "string",
+                          "description": "A message to look for in the output of the command to determine if successful or not."
+                        },
+                        "command_id": {
+                          "type": "string",
+                          "description": "If the process needs to continue running after the command is executed provide a unique command identifier which you can use to kill the process later."
+                        }
+                      },
+                      "required": [
+                        "command",
+                        "timeout"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "command"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "save_file",
+                      "description": "Type of the development step that needs to be done to complete the entire task."
+                    },
+                    "save_file": {
+                      "type": "object",
+                      "description": "A file that should be created or updated.",
+                      "properties": {
+                        "path": {
+                          "type": "string",
+                          "description": "Full path of the file with the file name."
+                        },
+                        "code_change_description": {
+                          "type": "string",
+                          "description": "Empty string"
+                        }
+                      },
+                      "required": [
+                        "path",
+                        "code_change_description"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "save_file"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "human_intervention",
+                      "description": "Development step that will be executed by a human. You should avoid using this step if possible, task does NOT need to have \"human_intervention\" step."
+                    },
+                    "human_intervention_description": {
+                      "type": "string",
+                      "description": "Very clear description of step where human intervention is needed."
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "human_intervention_description"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "tasks"
+        ]
+      }
+    }
+  ],
+  "response": {
+    "tasks": [
+      {
+        "type": "command",
+        "command": {
+          "command": "npm install mongoose dotenv",
+          "timeout": 60000
+        }
+      },
+      {
+        "type": "save_file",
+        "save_file": {
+          "path": "./.env",
+          "code_change_description": ""
+        }
+      },
+      {
+        "type": "save_file",
+        "save_file": {
+          "path": "./backend/database.js",
+          "code_change_description": ""
+        }
+      }
+    ]
+  }
+}

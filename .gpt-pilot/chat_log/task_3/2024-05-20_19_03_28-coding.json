@@ -1,0 +1,69 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The additions correctly integrate necessary imports for MongoDB, session management, and authentication routes, aligning with the task requirements.",
+        "decision": "apply"
+      },
+      {
+        "number": 2,
+        "reason": "The hunk correctly adds MongoDB connection, session configuration, and the use of authentication routes. However, the placeholder 'INPUT_REQUIRED {Provide a strong secret for session encryption}' needs to be replaced with an actual secret key from the environment variables, as per best practices for security.",
+        "decision": "rework"
+      }
+    ],
+    "review_notes": "The changes made are in line with the task's requirements for integrating user authentication, session management, and database connection. However, a minor adjustment is needed to ensure the session secret is securely handled through environment variables. Additionally, ensure that all new dependencies are installed as per the task instructions."
+  }
+}

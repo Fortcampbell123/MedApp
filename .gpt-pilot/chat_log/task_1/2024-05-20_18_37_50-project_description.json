@@ -1,0 +1,36 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file contains a configuration setting for the MongoDB URI, which specifies the connection details for a MongoDB database.",
+    "references": []
+  }
+}

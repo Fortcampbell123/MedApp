@@ -1,0 +1,64 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "review_diff",
+      "description": "Review a unified diff and select hunks to apply or rework.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "hunks": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "number": {
+                  "type": "integer",
+                  "description": "Index of the hunk in the diff. Starts from 1."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Reason for applying or ignoring this hunk, or for asking for it to be reworked."
+                },
+                "decision": {
+                  "type": "string",
+                  "enum": [
+                    "apply",
+                    "ignore",
+                    "rework"
+                  ],
+                  "description": "Whether to apply this hunk, rework, or ignore it."
+                }
+              },
+              "required": [
+                "number",
+                "reason",
+                "decision"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "review_notes": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "hunks",
+          "review_notes"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "hunks": [
+      {
+        "number": 1,
+        "reason": "The hunk implements the required functionality for user registration and login, including session management and password hashing as specified in the task. It also correctly uses dotenv to load the session secret from environment variables, which aligns with best practices for security.",
+        "decision": "apply"
+      }
+    ],
+    "review_notes": "The changes made in this hunk are in line with the task requirements for implementing a user authentication system. It includes proper error handling and logging, which are good development practices. The use of express-session for session management and bcrypt for password hashing are correctly implemented. Additionally, the inclusion of dotenv for managing the session secret enhances the security of the application. Overall, the implementation follows the instructions and adheres to best practices."
+  }
+}

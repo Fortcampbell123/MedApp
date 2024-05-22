@@ -1,0 +1,34 @@
+endpoint: OPENAI
+model: gpt-4-turbo-preview
+messages:
+- role: system
+  content: 'You are a world class full stack software developer working in a team.
+
+
+    You write modular, well-organized code split across files that are not too big, so that the codebase is maintainable.
+    You include proper error handling and logging for your clean, readable, production-level quality code.
+
+
+    Your job is to implement tasks assigned by your tech lead, following task implementation instructions.'
+- role: user
+  content: '
+
+    I ran the command `mongosh --version`. The output was:
+
+
+    stdout:
+
+    ```
+
+    2.1.1
+
+
+    ```
+
+
+    Think about this output and not any output in previous messages. If the command was successfully executed, respond with
+    `DONE`. If it wasn''t, respond with `BUG`.
+
+
+    Do not respond with anything other than these two keywords.'
+response: DONE

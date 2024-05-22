@@ -1,0 +1,144 @@
+endpoint: OPENAI
+model: gpt-4-turbo-preview
+messages:
+- role: system
+  content: 'You are a world class full stack software developer working in a team.
+
+
+    You write modular, well-organized code split across files that are not too big, so that the codebase is maintainable.
+    You include proper error handling and logging for your clean, readable, production-level quality code.
+
+
+    Your job is to implement tasks assigned by your tech lead, following task implementation instructions.'
+- role: user
+  content: 'You are working on a App called "Elite", writing the code for the entire application.
+
+
+    Here is a high level description of "Elite":
+
+    ```
+
+    Todo List Functionality:
+
+
+    1. **Add Todo Item**: Users can add tasks with details such as task name, description, due date, and priority level. Should
+    there be any specific fields related to healthcare activities that need to be included in the task details?
+
+
+    2. **View Todo List**: Display a list of tasks for each client, with the ability to sort or filter tasks by status (pending,
+    completed), due date, or priority.
+
+
+    3. **Edit Todo Item**: Users can edit the details of an existing task. Are there any restrictions on who can edit tasks
+    (e.g., only the user who created the task or any user with access to that client)?
+
+
+    4. **Mark as Completed**: Users can mark tasks as completed. Should there be an option to revert a task back to pending
+    status?
+
+
+    5. **Delete Todo Item**: Users can delete tasks. Should this be a soft delete (where the task is hidden but not permanently
+    removed) or a hard delete (permanently removed)?
+
+
+    6. **Access Control**: Define which roles have access to view and manage the Todo lists. Is access to Todo lists based
+    on the client they are assigned to, or can certain roles view all clients'' Todo lists?
+
+
+    7. **Notifications/Reminders**: Should the system send notifications or reminders for upcoming deadlines for tasks? If
+    so, which method(s) should be used (email, SMS, in-app notifications)?
+
+
+    Please provide details on these aspects of the Todo list functionality to ensure the specification fully captures the
+    project requirements.
+
+    Additional info/examples:
+
+    1. The app is built using React.
+
+    2. The app features a login page.
+
+    3. Users can change their password.
+
+    4. Upon login, users can see the names and pictures of clients.
+
+    5. Clicking on a client''s name or picture takes the user to that client''s todo list.
+
+    ```
+
+
+
+    You are currently working on, and have to focus only on, this task:
+
+    ```
+
+    Set up the Express server in a file named `server.js` in the `backend` folder. This server should import Express and initialize
+    it to listen on a port specified in the `.env` file. The server should have a simple GET route `/api/ping` that returns
+    a JSON response `{ success: true, message: ''Pong'' }` to test if the server is running. Use dotenv to load the port from
+    the `.env` file.
+
+    ```
+
+
+    A part of the app is already finished. Here is the list of files and descriptions that the app currently contains:
+
+
+    * `.eslintrc.cjs`: Configuration file for ESLint, a static code analysis tool for identifying problematic patterns found
+    in JavaScript code. It defines rules for linting JavaScript code with a focus on React applications.
+
+    * `.gitignore`: Specifies patterns to exclude files and directories from being tracked by Git version control system.
+    It is used to prevent certain files from being committed to the repository.
+
+    * `index.html`: Main entry point for the project. It includes a basic HTML structure with a root div element and a script
+    tag importing a JavaScript file named main.jsx using the module type. References: src/main.jsx
+
+    * `package.json`: Standard Nodejs package metadata file, specifies dependencies and start scripts. It also specifies that
+    the project is a module.
+
+    * `vite.config.js`: Configuration file for Vite, a fast developer-friendly Javascript bundler/devserver.
+
+    * `public/.gitkeep`: (unknown)
+
+    * `src/App.css`: This file defines CSS styles for the root element of the application, setting a maximum width, centering
+    it on the page, adding padding, and aligning text to the center.
+
+    * `src/App.jsx`: This file defines a functional component named App that renders a heading element with the text ''Elite''.
+    The component is exported as the default export. [References: src/App.css]
+
+    * `src/index.css`: This CSS file defines styling rules for the root element, body, and h1 elements. It sets font properties
+    for better rendering and layout properties for centering content.
+
+    * `src/main.jsx`: This file is the main entry point for a React application. It imports React and ReactDOM to render the
+    main App component into the root element of the HTML document. [References: App.jsx, index.css]
+
+    * `src\assets/.gitkeep`: (unknown)
+
+    * `.env`: This file contains a configuration setting for the MongoDB URI to connect to a MongoDB database.
+
+    * `backend/database.js`: This file defines a function to connect to a MongoDB database using Mongoose. It reads the MongoDB
+    connection URI from the environment variables using dotenv and then attempts to establish a connection to the database.
+    If the connection is successful, it logs a success message; otherwise, it logs an error message and exits the process.
+    [References: mongoose.js, dotenv.js]
+
+
+
+
+    **IMPORTANT**
+
+    The files necessary for a developer to understand, modify, implement, and test the current task are considered to be relevant
+    files.
+
+    Your job is select  which of existing files are relevant for the current task. From the above list of files that app currently
+    contains, you have to select ALL files that are relevant to the current task. Think step by step of everything that has
+    to be done in this task and which files contain needed information. If you are unsure if a file is relevant or not, it
+    is always better to include it in the list of relevant files.
+
+
+    **IMPORTANT**: Pay attention to file paths: if the command or argument is a file or folder from the project, use paths
+    relative to the project root (for example, use `./somefile` instead of `/somefile`).'
+- role: user
+  content: "**IMPORTANT**\nYou must respond with ONLY the JSON object, with NO additional text or explanation.\n\nHere is\
+    \ the schema for the expected JSON object:\n```json\n{\n    \"relevant_files\": {\n        \"type\": \"array\",\n    \
+    \    \"items\": {\n            \"type\": \"string\",\n            \"description\": \"Path to the file that is relevant\
+    \ for the current task, relative to the project root.\"\n        }\n    }\n}\n```\n\n"
+response: "```json\n{\n    \"relevant_files\": [\n        \".env\",\n        \"package.json\"\n    ]\n}\n```"

@@ -1,0 +1,31 @@
+endpoint: OPENAI
+model: gpt-3.5-turbo
+messages:
+- role: system
+  content: "You're a software developer AI assistant. Your task is to explain the functionality implemented by a particular\
+    \ source code file.\n\nGiven a file path and file contents, your output should contain:\n\n* a short explanation of what\
+    \ the file is about;\n* a list of all other files referenced (imported) from this file. note that some libraries, frameworks\
+    \ or libraries assume file extension and don't use it explicitly. For example, \"import foo\" in Python references \"\
+    foo.py\" without specifying the extension. In your response, use the complete file name including the implied extension;\n\
+    \nOutput the result in a JSON format with the following structure, as in this example:\n\nExample:\n{\n    \"summary\"\
+    : \"Describe in detail the functionality being defind o implemented in this file. Be as detailed as possible\",\n    \"\
+    references\": [\n        \"some/file.py\",\n        \"some/other/file.js\"\n    ],\n}\n\nYour response must be a valid\
+    \ JSON document, following the example format. Do not add any extra explanation or commentary outside the JSON document.\n"
+- role: user
+  content: "Here's the `backend\\server.js` file:\n```\nimport express from 'express';\nimport dotenv from 'dotenv';\n\n//\
+    \ Load environment variables from .env file\ndotenv.config();\n\nconst app = express();\nconst PORT = process.env.PORT\
+    \ || 3001; // Fallback to 3001 if PORT is not defined\n\napp.get('/api/ping', (req, res) => {\n    console.log('Received\
+    \ request for /api/ping');\n    res.json({ success: true, message: 'Pong' });\n});\n\napp.listen(PORT, () => {\n    console.log(`Server\
+    \ is running on port ${PORT}`);\n});\n\napp.use((err, req, res, next) => {\n    console.error(`An error occurred: ${err.message}\\\
+    n${err.stack}`);\n    res.status(500).send('Something broke!');\n});\n```\n"
+- role: user
+  content: "**IMPORTANT**\nYou must respond with ONLY the JSON object, with NO additional text or explanation.\n\nHere is\
+    \ the schema for the expected JSON object:\n```json\n{\n    \"summary\": {\n        \"type\": \"string\",\n        \"\
+    description\": \"Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible.\"\
+    \n    },\n    \"references\": {\n        \"type\": \"array\",\n        \"items\": {\n            \"type\": \"string\"\
+    ,\n            \"description\": \"Path to a file that is referenced in the current file, relative to the project root.\"\
+    \n        },\n        \"description\": \"List of file references.\"\n    }\n}\n```\n\n"
+response: "{\n    \"summary\": \"This file sets up an Express server that listens on a specified port, handles a GET request\
+  \ to '/api/ping' by responding with a JSON object, and includes error handling middleware. It also loads environment variables\
+  \ from a .env file using the dotenv library.\",\n    \"references\": [\n        \"express.js\",\n        \"dotenv.js\"\n\
+  \    ]\n}"

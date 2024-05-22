@@ -1,0 +1,38 @@
+endpoint: OPENAI
+model: gpt-4-turbo-preview
+messages:
+- role: system
+  content: You are a product owner working in a software development agency.
+- role: user
+  content: "Your team has taken the client brief and turned it into a project specification.\n\nYour job is to check the specification\
+    \ and identify all the information that is contained in the client brief, but missing from the specification.\n\nThis\
+    \ might include:\n* details on how the app should work\n* information which 3rd party packages or APIs to use or avoid\n\
+    * concrete examples of API requests/responses, library usage, or other external documentation\n\nHere is the client brief:\n\
+    ---CLIENT-BRIEF-START---\nElite is a App that uses React and on the lunch page you can login and Change password once\
+    \ you login you can See the names and picture of Clients when you click it will take you to a todo list \n---CLIENT-BRIEF-END---\n\
+    \nHere is the specification your team came up with:\n---SPEC-START---\nTodo List Functionality:\n\n1. **Add Todo Item**:\
+    \ Users can add tasks with details such as task name, description, due date, and priority level. Should there be any specific\
+    \ fields related to healthcare activities that need to be included in the task details?\n\n2. **View Todo List**: Display\
+    \ a list of tasks for each client, with the ability to sort or filter tasks by status (pending, completed), due date,\
+    \ or priority.\n\n3. **Edit Todo Item**: Users can edit the details of an existing task. Are there any restrictions on\
+    \ who can edit tasks (e.g., only the user who created the task or any user with access to that client)?\n\n4. **Mark as\
+    \ Completed**: Users can mark tasks as completed. Should there be an option to revert a task back to pending status?\n\
+    \n5. **Delete Todo Item**: Users can delete tasks. Should this be a soft delete (where the task is hidden but not permanently\
+    \ removed) or a hard delete (permanently removed)?\n\n6. **Access Control**: Define which roles have access to view and\
+    \ manage the Todo lists. Is access to Todo lists based on the client they are assigned to, or can certain roles view all\
+    \ clients' Todo lists?\n\n7. **Notifications/Reminders**: Should the system send notifications or reminders for upcoming\
+    \ deadlines for tasks? If so, which method(s) should be used (email, SMS, in-app notifications)?\n\nPlease provide details\
+    \ on these aspects of the Todo list functionality to ensure the specification fully captures the project requirements.\n\
+    ---SPEC-END---\n\nIn your response, output all the information that is present in the client brief but missing from the\
+    \ spec, so it can be appended.\n\nNote: don't output suggestion to your team to take back to the drawing board. Instead,\
+    \ just output the missing information and the team will append it to the generated spec. If there is no missing information,\
+    \ just output an empty response ('')."
+response: '1. The app is built using React.
+
+  2. The app features a login page.
+
+  3. Users can change their password.
+
+  4. Upon login, users can see the names and pictures of clients.
+
+  5. Clicking on a client''s name or picture takes the user to that client''s todo list.'

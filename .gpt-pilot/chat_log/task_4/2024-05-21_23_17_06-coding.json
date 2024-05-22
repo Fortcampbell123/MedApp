@@ -1,0 +1,35 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-4-turbo-preview",
+  "functions": [
+    {
+      "name": "list_relevant_files",
+      "description": "List of relevant files for the current task.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "relevant_files": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to the file that is relevant for the current task, relative to the project root."
+            }
+          }
+        },
+        "required": [
+          "relevant_files"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "relevant_files": [
+      "./src/App.jsx",
+      "./backend/routes/authRoutes.js",
+      "./backend/models/userModel.js",
+      "./package.json",
+      "./.env"
+    ]
+  }
+}

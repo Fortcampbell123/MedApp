@@ -1,0 +1,39 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file defines a function to connect to a MongoDB database using Mongoose. It reads the MongoDB URI from the environment variables using dotenv and then attempts to establish a connection to the database with the specified options. If the connection is successful, it logs a success message; otherwise, it logs an error message and exits the process.",
+    "references": [
+      "mongoose.js",
+      "dotenv.js"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file defines a functional component named App that renders a heading element with the text 'Elite'. The component is exported as the default export.",
+    "references": [
+      "src/App.css"
+    ]
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "endpoint": "OPENAI",
+  "model": "gpt-3.5-turbo",
+  "functions": [
+    {
+      "name": "describe_file",
+      "description": "Describe the content of the file.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "summary": {
+            "type": "string",
+            "description": "Describe in detail the functionality being defined or implemented in this file. Be as detailed as possible."
+          },
+          "references": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Path to a file that is referenced in the current file, relative to the project root."
+            },
+            "description": "List of file references."
+          }
+        },
+        "required": [
+          "summary",
+          "references"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "response": {
+    "summary": "This file `testDatabaseConnection.js` is responsible for testing the connection to a MongoDB database. It imports the `connectDB` function from the `database.js` file located in the `backend` directory and then tests the connection by calling the `connectDB` function. If the connection is successful, it logs a success message; otherwise, it logs an error message.",
+    "references": [
+      "backend/database.js"
+    ]
+  }
+}
