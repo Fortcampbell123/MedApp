@@ -8,17 +8,17 @@ dotenv.config();
 
 const router = express.Router();
 
-// Initialize express-session
+
 router.use(expressSession({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
 }));
 
-// Middleware to parse JSON request bodies
+
 router.use(express.json());
 
-// Registration route
+
 router.post('/register', async (req, res) => {
   try {
     const { username, password, roles } = req.body;
@@ -32,7 +32,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login route
+
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
