@@ -11,7 +11,7 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5173;
 
-// MongoDB connection
+// MogoDB connection
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Database connected successfully'))
   .catch(err => {
@@ -19,10 +19,10 @@ mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTop
     process.exit(1);
   });
 
-const MongoStore = connectMongo(session); // Instantiate connect-mongo
+const MongoStore = connectMongo(session); //  connect to mongo
 const store = new MongoStore({
   mongooseConnection: mongoose.connection,
-  collection: 'sessions' // Specify the collection name if needed
+  collection: 'sessions' 
 });
 
 app.use(express.json());
